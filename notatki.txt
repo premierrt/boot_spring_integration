@@ -1,0 +1,58 @@
+dependencyManagement
+
+https://memorynotfound.com/spring-cloud-eureka-service-discovery-client-server-example/
+
+mvn spring-boot:run
+
+
+---------
+zaimplementowac:
+
+1. inbound http adapter - dodaje do kanalu requestMes
+2. transformer zeby bral requestMes i dociagal skads jeszcze inne dane
+2b. enricher zeby dodal dane
+3. outbound adapter np. jms i do innej aplikacji na spring boot
+
+
+
+mikroservice ktory wystawia rest api i komunikuje sie z ... 
+1. fileSystem adapterem zapisujacym do pliku 
+2. zmienić na zapis do kolejki jms z activemq
+
+
+https://www.slideshare.net/DominikStrzyewski/spring-integration-57829066
+
+http://javasampleapproach.com/spring-framework/spring-integration/use-spring-integration-http-inbound-spring-boot
+
+https://springframework.guru/spring-boot-example-of-spring-integration-and-activemq/
+
+http://javasampleapproach.com/spring-framework/spring-jms/spring-jms-activemq-implement-runtime-springboot-activemq-jmsresponse-application
+
+https://dzone.com/articles/spring-integration-hands
+https://dzone.com/articles/spring-integration-hands-0
+
+
+https://www.javacodegeeks.com/2015/09/spring-integration-for-eai.html
+
+https://www.javacodegeeks.com/2015/09/spring-integration-fundamentals.html#transformer
+
+-channels:
+https://javabeat.net/using-channels-in-spring-integration/
+
+
+--payload enricher
+7.2.3 Payload Enricher
+https://docs.spring.io/spring-integration/reference/html/messaging-transformation-chapter.html
+
+
+
+---java 8
+https://springframework.guru/java-8-foreach/
+przyklady spring intgration w java8, dsl
+
+
+
+---transformer
+https://docs.spring.io/spring-integration/reference/html/messaging-transformation-chapter.html
+
+http://www.enterpriseintegrationpatterns.com/patterns/messaging/CanonicalDataModel.html

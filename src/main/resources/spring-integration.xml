@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.3.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-4.3.xsd
+		http://www.springframework.org/schema/integration/stream
+      http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+
+<!-- wejście http inboud -->
+<int:channel id="httpInboundChannel">
+	<int:interceptors>
+		<int:wire-tap channel="logger"/>
+	</int:interceptors>
+</int:channel>
+
+<!-- przetransformowany -->
+<int:channel id="trafsormedToCanoncial"></int:channel>
+
+
+<!-- standardowo adapter wejsciowy http -->
+<int-http:inbound-channel-adapter id="httpInAdapter" 
+	channel="httpInboundChannel"
+ 	supported-methods="POST" path="/customer"
+	request-payload-type="rt.aplikacja.model.CustomerRequest">
+<int-http:request-mapping consumes="application/json"/>	
+</int-http:inbound-channel-adapter>
+
+<!-- logger -->
+<int:logging-channel-adapter id="logger"   level="INFO"> </int:logging-channel-adapter>
+
+<!-- transformuj message na potać kanaoniczna -->
+<int:transformer ref="customerTransformer" method="transform" input-channel="httpInboundChannel" output-channel="trafsormedToCanoncial"></int:transformer>
+
+
+<!-- zapisz docelowo do jms -->
+<int-stream:stdout-channel-adapter id="newLineAdapter" append-newline="true" channel="trafsormedToCanoncial"></int-stream:stdout-channel-adapter>
+
+
+<!-- 
+<int-file:outbound-channel-adapter id="newlineAdapter"
+	append-new-line="true"
+    directory="${output.directory}"/>
+
+ -->
+</beans>
