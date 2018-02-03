@@ -37,8 +37,8 @@ public class CustomerCanonical {
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return "CustomerCanonical [id=" + id + ", name=" + name + ", yearOfBirth=" + yearOfBirth + ", adress=" + adress
+				+ "]";
 	}
 	
 	
